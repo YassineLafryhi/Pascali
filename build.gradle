@@ -1,0 +1,49 @@
+plugins {
+    id 'application'
+    id 'org.graalvm.buildtools.native'
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass.set('com.pascali.Main')
+}
+
+def junitVersion = providers.gradleProperty('junit.jupiter.version')
+        .forUseAtConfigurationTime()
+        .get()
+
+dependencies {
+    implementation 'org.antlr:antlr4:4.8'
+    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+graalvmNative {
+    agent {
+        defaultMode = "standard"
+
+        modes {
+            conditional {
+                userCodeFilterPath = "user-code-filter.json"
+            }
+        }
+
+        metadataCopy {
+            mergeWithExisting = true
+            inputTaskNames.add("test")
+            outputDirectories.add("build/native/metadataCopyTest")
+        }
+    }
+    binaries {
+        test {
+            verbose = true
+        }
+    }
+}

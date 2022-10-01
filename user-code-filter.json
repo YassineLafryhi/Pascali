@@ -1,0 +1,7 @@
+{
+    "rules": [
+        {"excludeClasses": "**"},
+        {"includeClasses": "com.pascali.**"},
+        {"includeClasses": "com.pascali.**"}
+    ]
+}
