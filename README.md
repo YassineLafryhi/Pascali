@@ -1,2 +1,2 @@
 # Pascali
-A Pascal interpreter built with Java using ANTLR 4
+A Pascal interpreter built with Java, ANTLR 4 and GraalVM (to build a Native Executable))
